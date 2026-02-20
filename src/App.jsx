@@ -199,7 +199,7 @@ export default function App() {
             )}
           </h1>
           <div style={{ fontSize: 13, color: "#8a90a0", margin: "8px 0 16px", fontFamily: "IBM Plex Mono" }}>
-            {book.chapters.length}章 · {allSections.length}節 · {book.totalPages}頁
+            {book.chapters.length}章 · {allSections.length}節{book.totalPages > 0 && ` · ${book.totalPages}頁`}
             {book.weekCount > 0 && ` · ${book.weekCount}週間プラン`}
           </div>
 
@@ -207,7 +207,7 @@ export default function App() {
           <div style={{ display: "flex", gap: 20, marginBottom: 14 }}>
             <StatBox label="進捗" value={totalPct} suffix="%" color={totalPct === 100 ? "#4ead4e" : "#4a90d9"} />
             <StatBox label="節" value={totalDone} suffix={`/ ${allSections.length}`} />
-            <StatBox label="ページ" value={pagesRead} suffix={`/ ${book.totalPages}`} />
+            {book.totalPages > 0 && <StatBox label="ページ" value={pagesRead} suffix={`/ ${book.totalPages}`} />}
             {book.weekCount > 0 && <StatBox label="Week" value={getCurrentWeek()} suffix={`/ ${book.weekCount}`} />}
           </div>
 
@@ -340,7 +340,7 @@ export default function App() {
                             Gap:{ch.gap}
                           </span>
                         )}
-                        <span style={{ color: "#5a6070" }}>{pageCount}p</span>
+                        {pageCount > 1 && <span style={{ color: "#5a6070" }}>{pageCount}p</span>}
                         {ch.week > 0 && <span style={{ color: "#5a6070" }}>W{ch.week}</span>}
                       </div>
                     </div>
@@ -398,12 +398,16 @@ export default function App() {
                             <span style={{ flex: 1, fontSize: 15, color: st === "unread" ? "#707888" : "#bcc3d0" }}>
                               {sec.title}
                             </span>
-                            <span style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#5a6070" }}>
-                              p.{sec.startPage}–{sec.endPage}
-                            </span>
-                            <span style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#5a6070", minWidth: 24, textAlign: "right" }}>
-                              {pages}p
-                            </span>
+                            {sec.startPage > 0 && (
+                              <span style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#5a6070" }}>
+                                p.{sec.startPage}–{sec.endPage}
+                              </span>
+                            )}
+                            {pages > 1 && (
+                              <span style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#5a6070", minWidth: 24, textAlign: "right" }}>
+                                {pages}p
+                              </span>
+                            )}
                           </div>
                         );
                       })}
