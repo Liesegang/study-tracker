@@ -4,7 +4,7 @@ export default {
   title: "理論電磁気学",
   author: "砂川重信",
   edition: "第3版",
-  subtitle: "東大理物 院試 + 一陸技",
+  subtitle: "東大理物 院試",
   totalPages: 459,
   weekCount: 10,
   defaultStartDate: "2026-02-24",
@@ -177,7 +177,7 @@ export default {
         "回折（キルヒホッフ・フラウンホーファー）",
         "散乱（トムソン・レイリー散乱）",
       ],
-      notes: "★64ページの最大章★ 院試最頻出。2週間かけてじっくり。一陸技の工学Bにも直結。",
+      notes: "★64ページの最大章★ 院試最頻出。2週間かけてじっくり。",
     },
     {
       id: 9,
@@ -298,11 +298,6 @@ export default {
       { theme: "電磁場のローレンツ変換", ch: [10, 11], freq: 2 },
       { theme: "電磁場テンソル", ch: [11], freq: 2 },
     ],
-    relatedExams: [
-      { subject: "無線工学の基礎", coverage: "1-6章", match: 4, note: "回路理論・電磁気の基礎" },
-      { subject: "無線工学A", coverage: "範囲外", match: 1, note: "送受信機等。別途対策必要" },
-      { subject: "無線工学B", coverage: "8-9章", match: 5, note: "電磁波・アンテナ・放射が直結" },
-      { subject: "法規", coverage: "範囲外", match: 0, note: "電波法。暗記で対処" },
-    ],
+    relatedExams: [],
   },
 };
