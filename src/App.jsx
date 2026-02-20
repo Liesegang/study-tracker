@@ -332,7 +332,9 @@ export default function App() {
                         )}
                       </div>
                       <div style={{ display: "flex", gap: 12, fontSize: 12, fontFamily: "IBM Plex Mono" }}>
-                        <span style={{ color: ch.importance >= 4 ? "#c4880a" : "#5a6070" }}>{stars(ch.importance)}</span>
+                        {ch.importance != null && (
+                          <span style={{ color: ch.importance >= 4 ? "#c4880a" : "#5a6070" }}>{stars(ch.importance)}</span>
+                        )}
                         {ch.gap && (
                           <span style={{ color: ch.gap === "大" ? "#b03030" : ch.gap === "中" ? "#c4880a" : "#2a8040" }}>
                             Gap:{ch.gap}
@@ -410,7 +412,7 @@ export default function App() {
                       {ch.examTopics && ch.examTopics.length > 0 && (
                         <div style={{ marginTop: 12, padding: "10px 12px", background: "#0c0f18", borderRadius: 6, border: "1px solid #151a25" }}>
                           <div style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#4a7ab0", letterSpacing: 1, marginBottom: 6 }}>
-                            院試出題テーマ
+                            {book.examInfo ? "出題テーマ" : "重要トピック"}
                           </div>
                           {ch.examTopics.map((t, i) => (
                             <div key={i} style={{ fontSize: 14, color: "#8a90a0", padding: "2px 0" }}>
