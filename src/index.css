@@ -7,8 +7,8 @@
 }
 
 body {
-  background: #08090c;
-  color: #bcc3d0;
+  background: #131620;
+  color: #c8cfd8;
   font-family: 'Noto Sans JP', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -34,12 +34,12 @@ input, textarea, button {
 }
 .sidebar::-webkit-scrollbar-thumb,
 .sidebar *::-webkit-scrollbar-thumb {
-  background: #1a1d25;
+  background: #303648;
   border-radius: 2px;
 }
 .sidebar::-webkit-scrollbar-thumb:hover,
 .sidebar *::-webkit-scrollbar-thumb:hover {
-  background: #2a2e38;
+  background: #404858;
 }
 
 /* Mobile responsive */

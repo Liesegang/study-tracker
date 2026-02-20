@@ -2,10 +2,10 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import books from "./books/index.js";
 
 const STATUS_COLORS = {
-  unread: { bg: "#111318", border: "#1e2028", text: "#707888", icon: "○" },
-  reading: { bg: "#121a12", border: "#1e3a1e", text: "#4ead4e", icon: "◎" },
-  done: { bg: "#0f1520", border: "#163050", text: "#4a90d9", icon: "●" },
-  reviewed: { bg: "#1a1220", border: "#3a2060", text: "#9a6fd0", icon: "◆" },
+  unread: { bg: "#1a1e28", border: "#2a3040", text: "#8a92a8", icon: "○" },
+  reading: { bg: "#1a2818", border: "#2a4828", text: "#5cc05c", icon: "◎" },
+  done: { bg: "#182030", border: "#284060", text: "#5a9ee0", icon: "●" },
+  reviewed: { bg: "#241a30", border: "#402868", text: "#aa80e0", icon: "◆" },
 };
 
 const STATUS_LABELS = {
@@ -81,10 +81,10 @@ function Sidebar({ books, currentId, onSelect, open, onClose }) {
           display: "block",
           width: "100%",
           textAlign: "left",
-          background: active ? "#111520" : "transparent",
+          background: active ? "#1e2538" : "transparent",
           border: "none",
           borderLeft: active ? "3px solid #4a90d9" : "3px solid transparent",
-          color: active ? "#e2e6ed" : "#8a90a0",
+          color: active ? "#e2e6ed" : "#a0a8b8",
           fontSize: 13,
           padding: "9px 12px",
           cursor: "pointer",
@@ -94,7 +94,7 @@ function Sidebar({ books, currentId, onSelect, open, onClose }) {
         }}
       >
         <div>{b.title}</div>
-        {b.author && <div style={{ fontSize: 11, color: "#5a6070", marginTop: 2 }}>{b.author}</div>}
+        {b.author && <div style={{ fontSize: 11, color: "#7a8098", marginTop: 2 }}>{b.author}</div>}
       </button>
     );
   };
@@ -119,8 +119,8 @@ function Sidebar({ books, currentId, onSelect, open, onClose }) {
         style={{
           width: 240,
           minWidth: 240,
-          background: "#0a0b10",
-          borderRight: "1px solid #12141a",
+          background: "#181c28",
+          borderRight: "1px solid #252a38",
           height: "100vh",
           position: "sticky",
           top: 0,
@@ -131,7 +131,7 @@ function Sidebar({ books, currentId, onSelect, open, onClose }) {
         className={`sidebar ${open ? "sidebar-open" : ""}`}
       >
         {/* Logo / title */}
-        <div style={{ padding: "16px 14px 12px", borderBottom: "1px solid #12141a" }}>
+        <div style={{ padding: "16px 14px 12px", borderBottom: "1px solid #252a38" }}>
           <div style={{ fontSize: 14, fontWeight: 600, color: "#e2e6ed", fontFamily: "IBM Plex Mono" }}>
             Study Tracker
           </div>
@@ -146,8 +146,8 @@ function Sidebar({ books, currentId, onSelect, open, onClose }) {
             onChange={(e) => setSearch(e.target.value)}
             style={{
               width: "100%",
-              background: "#0c0e14",
-              border: "1px solid #1a1d25",
+              background: "#1c2030",
+              border: "1px solid #303648",
               color: "#bcc3d0",
               fontSize: 13,
               padding: "7px 10px",
@@ -164,7 +164,7 @@ function Sidebar({ books, currentId, onSelect, open, onClose }) {
           {filtered ? (
             <div>
               {filtered.length === 0 && (
-                <div style={{ fontSize: 12, color: "#5a6070", padding: "10px 14px" }}>該当なし</div>
+                <div style={{ fontSize: 12, color: "#7a8098", padding: "10px 14px" }}>該当なし</div>
               )}
               {filtered.map(renderBookItem)}
             </div>
@@ -172,7 +172,7 @@ function Sidebar({ books, currentId, onSelect, open, onClose }) {
             <div>
               {booksByCategory.map(({ category, items }) => (
                 <div key={category}>
-                  <div style={{ fontSize: 10, fontFamily: "IBM Plex Mono", color: "#5a6070", letterSpacing: 1, padding: "12px 14px 4px", textTransform: "uppercase" }}>
+                  <div style={{ fontSize: 10, fontFamily: "IBM Plex Mono", color: "#7a8098", letterSpacing: 1, padding: "12px 14px 4px", textTransform: "uppercase" }}>
                     {category}
                   </div>
                   {items.map(renderBookItem)}
@@ -180,7 +180,7 @@ function Sidebar({ books, currentId, onSelect, open, onClose }) {
               ))}
               {uncategorized.length > 0 && (
                 <div>
-                  <div style={{ fontSize: 10, fontFamily: "IBM Plex Mono", color: "#5a6070", letterSpacing: 1, padding: "12px 14px 4px" }}>
+                  <div style={{ fontSize: 10, fontFamily: "IBM Plex Mono", color: "#7a8098", letterSpacing: 1, padding: "12px 14px 4px" }}>
                     OTHER
                   </div>
                   {uncategorized.map(renderBookItem)}
@@ -284,7 +284,7 @@ export default function App() {
   if (hasExamInfo) tabs.push({ key: "exams", label: "過去問" });
 
   return (
-    <div style={{ display: "flex", background: "#08090c", color: "#bcc3d0", minHeight: "100vh", fontFamily: "'Noto Sans JP', sans-serif" }}>
+    <div style={{ display: "flex", background: "#131620", color: "#bcc3d0", minHeight: "100vh", fontFamily: "'Noto Sans JP', sans-serif" }}>
       {/* Sidebar */}
       {books.length > 1 && (
         <Sidebar
@@ -309,9 +309,9 @@ export default function App() {
               top: 12,
               left: 12,
               zIndex: 98,
-              background: "#0a0b10",
-              border: "1px solid #1a1d25",
-              color: "#8a90a0",
+              background: "#181c28",
+              border: "1px solid #303648",
+              color: "#a0a8b8",
               fontSize: 18,
               padding: "6px 10px",
               borderRadius: 6,
@@ -324,7 +324,7 @@ export default function App() {
         )}
 
         {/* === HEADER === */}
-        <div style={{ background: "linear-gradient(180deg, #0c0e14 0%, #08090c 100%)", borderBottom: "1px solid #15171e", padding: "24px 20px 22px" }}>
+        <div style={{ background: "linear-gradient(180deg, #1c2030 0%, #131620 100%)", borderBottom: "1px solid #2a2f3e", padding: "24px 20px 22px" }}>
           <div style={{ maxWidth: 760, margin: "0 auto" }}>
             {book.subtitle && (
               <div style={{ fontSize: 12, fontFamily: "IBM Plex Mono", color: "#4a7ab0", letterSpacing: 3, textTransform: "uppercase", marginBottom: 8 }}>
@@ -334,12 +334,12 @@ export default function App() {
             <h1 style={{ fontSize: 26, fontWeight: 700, color: "#e2e6ed", margin: "0 0 4px", lineHeight: 1.3 }}>
               {book.title}
               {(book.author || book.edition) && (
-                <span style={{ fontWeight: 300, color: "#8a8a8a", fontSize: 17, marginLeft: 10 }}>
+                <span style={{ fontWeight: 300, color: "#a0a0a8", fontSize: 17, marginLeft: 10 }}>
                   {book.author} {book.edition}
                 </span>
               )}
             </h1>
-            <div style={{ fontSize: 13, color: "#8a90a0", margin: "8px 0 16px", fontFamily: "IBM Plex Mono" }}>
+            <div style={{ fontSize: 13, color: "#a0a8b8", margin: "8px 0 16px", fontFamily: "IBM Plex Mono" }}>
               {book.chapters.length}章 · {allSections.length}節{book.totalPages > 0 && ` · ${book.totalPages}頁`}
               {book.weekCount > 0 && ` · ${book.weekCount}週間プラン`}
             </div>
@@ -353,12 +353,12 @@ export default function App() {
             </div>
 
             {/* Progress bar */}
-            <div style={{ height: 5, background: "#12141a", borderRadius: 3, overflow: "hidden" }}>
+            <div style={{ height: 5, background: "#252a38", borderRadius: 3, overflow: "hidden" }}>
               <div
                 style={{
                   width: `${totalPct}%`,
                   height: "100%",
-                  background: totalPct === 100 ? "#4ead4e" : "linear-gradient(90deg, #1a4070, #4a90d9)",
+                  background: totalPct === 100 ? "#4ead4e" : "linear-gradient(90deg, #255090, #4a90d9)",
                   borderRadius: 3,
                   transition: "width 0.4s ease",
                 }}
@@ -368,15 +368,15 @@ export default function App() {
             {/* Start date */}
             {book.weekCount > 0 && (
               <div style={{ marginTop: 12, display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ fontSize: 13, color: "#5a5e68" }}>開始日</span>
+                <span style={{ fontSize: 13, color: "#a0a8b8" }}>開始日</span>
                 <input
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
                   style={{
-                    background: "#0c0e14",
-                    border: "1px solid #1a1d25",
-                    color: "#8a90a0",
+                    background: "#1c2030",
+                    border: "1px solid #303648",
+                    color: "#a0a8b8",
                     fontSize: 13,
                     padding: "3px 8px",
                     borderRadius: 4,
@@ -391,7 +391,7 @@ export default function App() {
 
         {/* === TABS === */}
         <div style={{ maxWidth: 760, margin: "0 auto", padding: "0 20px" }}>
-          <div style={{ display: "flex", borderBottom: "1px solid #12141a" }}>
+          <div style={{ display: "flex", borderBottom: "1px solid #252a38" }}>
             {tabs.map((tab) => (
               <button
                 key={tab.key}
@@ -401,7 +401,7 @@ export default function App() {
                   border: "none",
                   cursor: "pointer",
                   borderBottom: activeTab === tab.key ? "2px solid #4a90d9" : "2px solid transparent",
-                  color: activeTab === tab.key ? "#e2e6ed" : "#6a7080",
+                  color: activeTab === tab.key ? "#e2e6ed" : "#8a90a8",
                   fontSize: 15,
                   fontWeight: activeTab === tab.key ? 500 : 400,
                   padding: "14px 24px",
@@ -429,17 +429,17 @@ export default function App() {
                     key={ch.id}
                     style={{
                       marginBottom: 8,
-                      border: `1px solid ${isNow ? "#1a2a40" : "#12141a"}`,
+                      border: `1px solid ${isNow ? "#253858" : "#252a38"}`,
                       borderRadius: 8,
                       overflow: "hidden",
-                      background: isNow ? "#0a0f18" : "#0a0b10",
+                      background: isNow ? "#182030" : "#181c28",
                     }}
                   >
                     <div
                       onClick={() => setExpandedChapter(isExp ? null : ch.id)}
                       style={{ padding: "14px 16px", cursor: "pointer", display: "flex", alignItems: "center", gap: 12 }}
                     >
-                      <div style={{ fontSize: 14, fontFamily: "IBM Plex Mono", color: "#5a6070", minWidth: 26, textAlign: "right" }}>
+                      <div style={{ fontSize: 14, fontFamily: "IBM Plex Mono", color: "#7a8098", minWidth: 26, textAlign: "right" }}>
                         {ch.id}
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
@@ -460,7 +460,7 @@ export default function App() {
                             <span
                               style={{
                                 fontSize: 10,
-                                background: "#1a2a40",
+                                background: "#253858",
                                 color: "#4a90d9",
                                 padding: "2px 7px",
                                 borderRadius: 3,
@@ -474,15 +474,15 @@ export default function App() {
                         </div>
                         <div style={{ display: "flex", gap: 12, fontSize: 12, fontFamily: "IBM Plex Mono" }}>
                           {ch.importance != null && (
-                            <span style={{ color: ch.importance >= 4 ? "#c4880a" : "#5a6070" }}>{stars(ch.importance)}</span>
+                            <span style={{ color: ch.importance >= 4 ? "#c4880a" : "#7a8098" }}>{stars(ch.importance)}</span>
                           )}
                           {ch.gap && (
                             <span style={{ color: ch.gap === "大" ? "#b03030" : ch.gap === "中" ? "#c4880a" : "#2a8040" }}>
                               Gap:{ch.gap}
                             </span>
                           )}
-                          {pageCount > 1 && <span style={{ color: "#5a6070" }}>{pageCount}p</span>}
-                          {ch.week > 0 && <span style={{ color: "#5a6070" }}>W{ch.week}</span>}
+                          {pageCount > 1 && <span style={{ color: "#7a8098" }}>{pageCount}p</span>}
+                          {ch.week > 0 && <span style={{ color: "#7a8098" }}>W{ch.week}</span>}
                         </div>
                       </div>
                       <div style={{ textAlign: "right", minWidth: 48 }}>
@@ -491,7 +491,7 @@ export default function App() {
                             fontSize: 17,
                             fontFamily: "IBM Plex Mono",
                             fontWeight: 500,
-                            color: prog.pct === 100 ? "#4ead4e" : prog.pct > 0 ? "#4a90d9" : "#2a2e38",
+                            color: prog.pct === 100 ? "#4ead4e" : prog.pct > 0 ? "#4a90d9" : "#404858",
                           }}
                         >
                           {prog.pct}%
@@ -499,7 +499,7 @@ export default function App() {
                       </div>
                       <span
                         style={{
-                          color: "#4a5060",
+                          color: "#6a7088",
                           fontSize: 12,
                           transform: isExp ? "rotate(90deg)" : "none",
                           transition: "transform 0.15s",
@@ -510,7 +510,7 @@ export default function App() {
                     </div>
 
                     {isExp && (
-                      <div style={{ borderTop: "1px solid #12141a", padding: "8px 16px 16px" }}>
+                      <div style={{ borderTop: "1px solid #252a38", padding: "8px 16px 16px" }}>
                         {ch.sections.map((sec) => {
                           const st = sectionStatus[sec.id] || "unread";
                           const sc = STATUS_COLORS[st];
@@ -533,19 +533,19 @@ export default function App() {
                               }}
                             >
                               <span style={{ fontSize: 15, color: sc.text, minWidth: 16 }}>{sc.icon}</span>
-                              <span style={{ fontSize: 12, fontFamily: "IBM Plex Mono", color: "#5a6070", minWidth: 36 }}>
+                              <span style={{ fontSize: 12, fontFamily: "IBM Plex Mono", color: "#7a8098", minWidth: 36 }}>
                                 §{sec.id}
                               </span>
-                              <span style={{ flex: 1, fontSize: 15, color: st === "unread" ? "#707888" : "#bcc3d0" }}>
+                              <span style={{ flex: 1, fontSize: 15, color: st === "unread" ? "#8a92a8" : "#bcc3d0" }}>
                                 {sec.title}
                               </span>
                               {sec.startPage > 0 && (
-                                <span style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#5a6070" }}>
+                                <span style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#7a8098" }}>
                                   p.{sec.startPage}–{sec.endPage}
                                 </span>
                               )}
                               {pages > 1 && (
-                                <span style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#5a6070", minWidth: 24, textAlign: "right" }}>
+                                <span style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#7a8098", minWidth: 24, textAlign: "right" }}>
                                   {pages}p
                                 </span>
                               )}
@@ -555,12 +555,12 @@ export default function App() {
 
                         {/* Exam topics */}
                         {ch.examTopics && ch.examTopics.length > 0 && (
-                          <div style={{ marginTop: 12, padding: "10px 12px", background: "#0c0f18", borderRadius: 6, border: "1px solid #151a25" }}>
+                          <div style={{ marginTop: 12, padding: "10px 12px", background: "#1a2030", borderRadius: 6, border: "1px solid #2a3040" }}>
                             <div style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#4a7ab0", letterSpacing: 1, marginBottom: 6 }}>
                               {book.examInfo ? "出題テーマ" : "重要トピック"}
                             </div>
                             {ch.examTopics.map((t, i) => (
-                              <div key={i} style={{ fontSize: 14, color: "#8a90a0", padding: "2px 0" }}>
+                              <div key={i} style={{ fontSize: 14, color: "#a0a8b8", padding: "2px 0" }}>
                                 → {t}
                               </div>
                             ))}
@@ -569,9 +569,9 @@ export default function App() {
 
                         {/* Tips */}
                         {ch.notes && (
-                          <div style={{ marginTop: 8, padding: "10px 12px", background: "#0a0b10", borderRadius: 6, border: "1px solid #12141a" }}>
-                            <div style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#5a6070", marginBottom: 4 }}>TIPS</div>
-                            <div style={{ fontSize: 14, color: "#8a90a0" }}>{ch.notes}</div>
+                          <div style={{ marginTop: 8, padding: "10px 12px", background: "#181c28", borderRadius: 6, border: "1px solid #252a38" }}>
+                            <div style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#7a8098", marginBottom: 4 }}>TIPS</div>
+                            <div style={{ fontSize: 14, color: "#a0a8b8" }}>{ch.notes}</div>
                           </div>
                         )}
 
@@ -584,8 +584,8 @@ export default function App() {
                           style={{
                             width: "100%",
                             marginTop: 8,
-                            background: "#0a0b10",
-                            border: "1px solid #15171e",
+                            background: "#181c28",
+                            border: "1px solid #2a2f3e",
                             borderRadius: 6,
                             color: "#bcc3d0",
                             fontSize: 14,
@@ -606,7 +606,7 @@ export default function App() {
               {/* Appendices */}
               {book.appendices && book.appendices.length > 0 && (
                 <>
-                  <div style={{ marginTop: 20, fontSize: 12, fontFamily: "IBM Plex Mono", color: "#5a6070", letterSpacing: 1, marginBottom: 8 }}>
+                  <div style={{ marginTop: 20, fontSize: 12, fontFamily: "IBM Plex Mono", color: "#7a8098", letterSpacing: 1, marginBottom: 8 }}>
                     APPENDICES
                   </div>
                   {book.appendices.map((ap) => (
@@ -616,14 +616,14 @@ export default function App() {
                         padding: "10px 16px",
                         marginBottom: 6,
                         borderRadius: 6,
-                        background: "#0a0b10",
-                        border: "1px solid #12141a",
+                        background: "#181c28",
+                        border: "1px solid #252a38",
                         fontSize: 15,
-                        color: "#8a90a0",
+                        color: "#a0a8b8",
                       }}
                     >
                       {ap.title}
-                      <span style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#5a6070", marginLeft: 10 }}>
+                      <span style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#7a8098", marginLeft: 10 }}>
                         p.{ap.startPage}–{ap.endPage}
                       </span>
                     </div>
@@ -655,8 +655,8 @@ export default function App() {
                       padding: "14px 16px",
                       marginBottom: 8,
                       borderRadius: 8,
-                      border: `1px solid ${isCur ? "#1a2a40" : "#12141a"}`,
-                      background: isCur ? "#0a0f18" : "#0a0b10",
+                      border: `1px solid ${isCur ? "#253858" : "#252a38"}`,
+                      background: isCur ? "#182030" : "#181c28",
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
@@ -665,7 +665,7 @@ export default function App() {
                           fontSize: 13,
                           fontFamily: "IBM Plex Mono",
                           fontWeight: 500,
-                          color: isCur ? "#4a90d9" : isPast ? "#2a8040" : "#5a6070",
+                          color: isCur ? "#4a90d9" : isPast ? "#2a8040" : "#7a8098",
                           minWidth: 56,
                         }}
                       >
@@ -673,16 +673,16 @@ export default function App() {
                       </span>
                       <span style={{ flex: 1, fontSize: 15, color: "#c8cdd6", fontWeight: 500 }}>{week.focus}</span>
                       {isCur && (
-                        <span style={{ fontSize: 10, background: "#1a2a40", color: "#4a90d9", padding: "2px 8px", borderRadius: 3, fontFamily: "IBM Plex Mono" }}>
+                        <span style={{ fontSize: 10, background: "#253858", color: "#4a90d9", padding: "2px 8px", borderRadius: 3, fontFamily: "IBM Plex Mono" }}>
                           NOW
                         </span>
                       )}
-                      <span style={{ fontSize: 14, fontFamily: "IBM Plex Mono", color: wPct === 100 ? "#4ead4e" : "#5a6070" }}>
+                      <span style={{ fontSize: 14, fontFamily: "IBM Plex Mono", color: wPct === 100 ? "#4ead4e" : "#7a8098" }}>
                         {wPct}%
                       </span>
                     </div>
-                    <div style={{ height: 4, background: "#12141a", borderRadius: 2, overflow: "hidden", marginBottom: 8 }}>
-                      <div style={{ width: `${wPct}%`, height: "100%", background: wPct === 100 ? "#2a8040" : "#1a4070", transition: "width 0.3s" }} />
+                    <div style={{ height: 4, background: "#252a38", borderRadius: 2, overflow: "hidden", marginBottom: 8 }}>
+                      <div style={{ width: `${wPct}%`, height: "100%", background: wPct === 100 ? "#2a8040" : "#255090", transition: "width 0.3s" }} />
                     </div>
                     <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 6 }}>
                       {wChapters.map((c) => (
@@ -692,16 +692,16 @@ export default function App() {
                             fontSize: 12,
                             padding: "3px 9px",
                             borderRadius: 4,
-                            background: "#0c0e14",
-                            color: "#8a90a0",
-                            border: "1px solid #15171e",
+                            background: "#1c2030",
+                            color: "#a0a8b8",
+                            border: "1px solid #2a2f3e",
                           }}
                         >
                           {c.id}章 {c.title}
                         </span>
                       ))}
                     </div>
-                    <div style={{ fontSize: 13, color: "#5a6070", fontFamily: "IBM Plex Mono" }}>
+                    <div style={{ fontSize: 13, color: "#7a8098", fontFamily: "IBM Plex Mono" }}>
                       {week.pages} · {week.pace}
                     </div>
                   </div>
@@ -717,12 +717,12 @@ export default function App() {
                 <div
                   style={{
                     padding: "12px 14px",
-                    background: "#0c0f18",
+                    background: "#1a2030",
                     borderRadius: 8,
-                    border: "1px solid #151a25",
+                    border: "1px solid #2a3040",
                     marginBottom: 16,
                     fontSize: 14,
-                    color: "#8a90a0",
+                    color: "#a0a8b8",
                     lineHeight: 1.6,
                   }}
                 >
@@ -732,7 +732,7 @@ export default function App() {
 
               {book.examInfo.frequentTopics && book.examInfo.frequentTopics.length > 0 && (
                 <>
-                  <div style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#5a6070", letterSpacing: 1, marginBottom: 8 }}>
+                  <div style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#7a8098", letterSpacing: 1, marginBottom: 8 }}>
                     頻出テーマ × 章
                   </div>
                   {book.examInfo.frequentTopics.map((item, i) => (
@@ -745,11 +745,11 @@ export default function App() {
                         padding: "10px 14px",
                         marginBottom: 4,
                         borderRadius: 6,
-                        background: "#0a0b10",
-                        border: "1px solid #12141a",
+                        background: "#181c28",
+                        border: "1px solid #252a38",
                       }}
                     >
-                      <span style={{ fontSize: 12, fontFamily: "IBM Plex Mono", color: item.freq >= 4 ? "#c4880a" : "#8a90a0", minWidth: 66 }}>
+                      <span style={{ fontSize: 12, fontFamily: "IBM Plex Mono", color: item.freq >= 4 ? "#c4880a" : "#a0a8b8", minWidth: 66 }}>
                         {stars(item.freq)}
                       </span>
                       <span style={{ flex: 1, fontSize: 15, color: "#bcc3d0" }}>{item.theme}</span>
@@ -761,9 +761,9 @@ export default function App() {
                               fontSize: 11,
                               padding: "2px 7px",
                               borderRadius: 3,
-                              background: "#0c0f18",
+                              background: "#1a2030",
                               color: "#4a90d9",
-                              border: "1px solid #151a25",
+                              border: "1px solid #2a3040",
                               fontFamily: "IBM Plex Mono",
                             }}
                           >
@@ -778,7 +778,7 @@ export default function App() {
 
               {book.examInfo.relatedExams && book.examInfo.relatedExams.length > 0 && (
                 <>
-                  <div style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#5a6070", letterSpacing: 1, margin: "20px 0 8px" }}>
+                  <div style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#7a8098", letterSpacing: 1, margin: "20px 0 8px" }}>
                     関連試験との対応
                   </div>
                   {book.examInfo.relatedExams.map((item, i) => (
@@ -791,8 +791,8 @@ export default function App() {
                         padding: "10px 14px",
                         marginBottom: 4,
                         borderRadius: 6,
-                        background: "#0a0b10",
-                        border: "1px solid #12141a",
+                        background: "#181c28",
+                        border: "1px solid #252a38",
                       }}
                     >
                       <span style={{ fontSize: 15, color: "#bcc3d0", minWidth: 130 }}>{item.subject}</span>
@@ -800,15 +800,15 @@ export default function App() {
                         style={{
                           fontSize: 12,
                           fontFamily: "IBM Plex Mono",
-                          color: item.match >= 4 ? "#4ead4e" : item.match >= 2 ? "#c4880a" : "#5a6070",
+                          color: item.match >= 4 ? "#4ead4e" : item.match >= 2 ? "#c4880a" : "#7a8098",
                           minWidth: 66,
                         }}
                       >
                         {stars(item.match)}
                       </span>
-                      <span style={{ fontSize: 13, color: "#8a90a0", fontFamily: "IBM Plex Mono" }}>{item.coverage}</span>
+                      <span style={{ fontSize: 13, color: "#a0a8b8", fontFamily: "IBM Plex Mono" }}>{item.coverage}</span>
                       <span style={{ flex: 1 }} />
-                      <span style={{ fontSize: 13, color: "#8a90a0" }}>{item.note}</span>
+                      <span style={{ fontSize: 13, color: "#a0a8b8" }}>{item.note}</span>
                     </div>
                   ))}
                 </>
@@ -818,11 +818,11 @@ export default function App() {
 
           <div style={{ padding: "12px 0 36px", fontSize: 13, textAlign: "center", fontFamily: "IBM Plex Mono", display: "flex", justifyContent: "center", alignItems: "center", gap: 6 }}>
             <span style={{ color: STATUS_COLORS.unread.text }}>{STATUS_COLORS.unread.icon}{STATUS_LABELS.unread}</span>
-            <span style={{ color: "#4a5060" }}>→</span>
+            <span style={{ color: "#6a7088" }}>→</span>
             <span style={{ color: STATUS_COLORS.reading.text }}>{STATUS_COLORS.reading.icon}{STATUS_LABELS.reading}</span>
-            <span style={{ color: "#4a5060" }}>→</span>
+            <span style={{ color: "#6a7088" }}>→</span>
             <span style={{ color: STATUS_COLORS.done.text }}>{STATUS_COLORS.done.icon}{STATUS_LABELS.done}</span>
-            <span style={{ color: "#4a5060" }}>→</span>
+            <span style={{ color: "#6a7088" }}>→</span>
             <span style={{ color: STATUS_COLORS.reviewed.text }}>{STATUS_COLORS.reviewed.icon}{STATUS_LABELS.reviewed}</span>
           </div>
         </div>
@@ -834,10 +834,10 @@ export default function App() {
 function StatBox({ label, value, suffix, color }) {
   return (
     <div style={{ flex: 1 }}>
-      <div style={{ fontSize: 13, color: "#8a90a0", marginBottom: 4 }}>{label}</div>
+      <div style={{ fontSize: 13, color: "#a0a8b8", marginBottom: 4 }}>{label}</div>
       <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
         <span style={{ fontSize: 28, fontFamily: "IBM Plex Mono", fontWeight: 500, color: color || "#bcc3d0" }}>{value}</span>
-        <span style={{ fontSize: 14, color: "#8a90a0" }}>{suffix}</span>
+        <span style={{ fontSize: 14, color: "#a0a8b8" }}>{suffix}</span>
       </div>
     </div>
   );
