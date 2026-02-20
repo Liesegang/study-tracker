@@ -5,7 +5,8 @@ import sunakawa from "./sunakawa-emag.js";
 import qm from "./qm.js";
 import thermoStat from "./thermo-stat.js";
 import organicChem from "./organic-chem.js";
+import jonesOrganic from "./jones-organic.js";
 
-const books = [sunakawa, qm, thermoStat, organicChem];
+const books = [sunakawa, qm, thermoStat, organicChem, jonesOrganic];
 
 export default books;
