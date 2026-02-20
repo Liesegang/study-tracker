@@ -42,113 +42,148 @@ function stars(n) {
 
 function BookSelector({ books, currentId, onSelect }) {
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [open, setOpen] = useState(false);
 
   const categories = useMemo(() => {
     const cats = [...new Set(books.map((b) => b.category).filter(Boolean))];
-    return ["all", ...cats];
+    return cats;
   }, [books]);
 
   const filtered = useMemo(() => {
-    let list = books;
-    if (activeCategory !== "all") {
-      list = list.filter((b) => b.category === activeCategory);
-    }
-    if (search.trim()) {
-      const q = search.trim().toLowerCase();
-      list = list.filter(
-        (b) =>
-          b.title.toLowerCase().includes(q) ||
-          (b.author && b.author.toLowerCase().includes(q)) ||
-          (b.subtitle && b.subtitle.toLowerCase().includes(q))
-      );
-    }
-    return list;
-  }, [books, activeCategory, search]);
+    if (!search.trim()) return null;
+    const q = search.trim().toLowerCase();
+    return books.filter(
+      (b) =>
+        b.title.toLowerCase().includes(q) ||
+        (b.author && b.author.toLowerCase().includes(q)) ||
+        (b.subtitle && b.subtitle.toLowerCase().includes(q))
+    );
+  }, [books, search]);
+
+  const currentBook = books.find((b) => b.id === currentId);
+
+  const handleSelect = (id) => {
+    onSelect(id);
+    setOpen(false);
+    setSearch("");
+  };
 
   if (books.length <= 1) return null;
 
-  const catLabel = (c) => (c === "all" ? "All" : c);
+  const booksByCategory = categories.map((cat) => ({
+    category: cat,
+    items: books.filter((b) => b.category === cat),
+  }));
+  const uncategorized = books.filter((b) => !b.category);
+
+  const renderBookItem = (b) => {
+    const active = b.id === currentId;
+    return (
+      <button
+        key={b.id}
+        onClick={() => handleSelect(b.id)}
+        style={{
+          display: "block",
+          width: "100%",
+          textAlign: "left",
+          background: active ? "#111520" : "transparent",
+          border: "none",
+          borderLeft: active ? "3px solid #4a90d9" : "3px solid transparent",
+          color: active ? "#e2e6ed" : "#8a90a0",
+          fontSize: 14,
+          padding: "10px 14px",
+          cursor: "pointer",
+          fontFamily: "'Noto Sans JP'",
+          transition: "all 0.1s",
+        }}
+      >
+        {b.title}
+        {b.author && <span style={{ fontSize: 11, color: "#5a6070", marginLeft: 8 }}>{b.author}</span>}
+      </button>
+    );
+  };
 
   return (
     <div style={{ maxWidth: 760, margin: "0 auto", padding: "0 20px" }}>
-      {/* Category tabs + search */}
-      <div style={{ display: "flex", alignItems: "center", gap: 0, borderBottom: "1px solid #15171e" }}>
-        <div style={{ display: "flex", overflowX: "auto", flex: 1 }}>
-          {categories.map((cat) => {
-            const active = cat === activeCategory;
-            return (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  borderBottom: active ? "2px solid #4a90d9" : "2px solid transparent",
-                  color: active ? "#e2e6ed" : "#5a6070",
-                  fontSize: 13,
-                  fontWeight: active ? 500 : 400,
-                  padding: "10px 16px",
-                  cursor: "pointer",
-                  fontFamily: "'Noto Sans JP'",
-                  transition: "all 0.15s",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {catLabel(cat)}
-              </button>
-            );
-          })}
-        </div>
-        <input
-          type="text"
-          placeholder="検索..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{
-            background: "#0c0e14",
-            border: "1px solid #1a1d25",
-            color: "#bcc3d0",
-            fontSize: 13,
-            padding: "5px 10px",
-            borderRadius: 4,
-            fontFamily: "'Noto Sans JP'",
-            outline: "none",
-            width: 120,
-            marginLeft: 8,
-          }}
-        />
-      </div>
-      {/* Book list */}
-      <div style={{ display: "flex", overflowX: "auto", gap: 4, padding: "8px 0" }}>
-        {filtered.map((b) => {
-          const active = b.id === currentId;
-          return (
-            <button
-              key={b.id}
-              onClick={() => onSelect(b.id)}
+      {/* Current book + toggle */}
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          width: "100%",
+          background: "none",
+          border: "none",
+          padding: "14px 0",
+          cursor: "pointer",
+          fontFamily: "'Noto Sans JP'",
+        }}
+      >
+        <span style={{ fontSize: 15, fontWeight: 500, color: "#e2e6ed", flex: 1, textAlign: "left" }}>
+          {currentBook?.title || "Select book"}
+        </span>
+        <span style={{ color: "#5a6070", fontSize: 11, transform: open ? "rotate(180deg)" : "none", transition: "transform 0.15s" }}>
+          ▼
+        </span>
+      </button>
+
+      {/* Dropdown panel */}
+      {open && (
+        <div style={{ borderTop: "1px solid #15171e", paddingBottom: 8 }}>
+          {/* Search */}
+          <div style={{ padding: "10px 0" }}>
+            <input
+              type="text"
+              placeholder="検索..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              autoFocus
               style={{
-                background: active ? "#111520" : "none",
-                border: active ? "1px solid #1a2a40" : "1px solid transparent",
+                width: "100%",
+                background: "#0c0e14",
+                border: "1px solid #1a1d25",
+                color: "#bcc3d0",
+                fontSize: 14,
+                padding: "8px 12px",
                 borderRadius: 6,
-                color: active ? "#e2e6ed" : "#6a7080",
-                fontSize: 13,
-                fontWeight: active ? 500 : 400,
-                padding: "8px 14px",
-                cursor: "pointer",
                 fontFamily: "'Noto Sans JP'",
-                transition: "all 0.15s",
-                whiteSpace: "nowrap",
+                outline: "none",
+                boxSizing: "border-box",
               }}
-            >
-              {b.title}
-            </button>
-          );
-        })}
-        {filtered.length === 0 && (
-          <span style={{ fontSize: 13, color: "#5a6070", padding: "8px 14px" }}>該当なし</span>
-        )}
-      </div>
+            />
+          </div>
+
+          {/* Search results or categorized list */}
+          {filtered ? (
+            <div>
+              {filtered.length === 0 && (
+                <div style={{ fontSize: 13, color: "#5a6070", padding: "10px 14px" }}>該当なし</div>
+              )}
+              {filtered.map(renderBookItem)}
+            </div>
+          ) : (
+            <div>
+              {booksByCategory.map(({ category, items }) => (
+                <div key={category}>
+                  <div style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#5a6070", letterSpacing: 1, padding: "10px 14px 4px", textTransform: "uppercase" }}>
+                    {category}
+                  </div>
+                  {items.map(renderBookItem)}
+                </div>
+              ))}
+              {uncategorized.length > 0 && (
+                <div>
+                  <div style={{ fontSize: 11, fontFamily: "IBM Plex Mono", color: "#5a6070", letterSpacing: 1, padding: "10px 14px 4px" }}>
+                    OTHER
+                  </div>
+                  {uncategorized.map(renderBookItem)}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
