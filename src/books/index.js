@@ -7,7 +7,9 @@ import thermoStat from "./thermo-stat.js";
 import organicChem from "./organic-chem.js";
 import jonesOrganic from "./jones-organic.js";
 import warrenOrganic from "./warren-organic.js";
+import atkinsPchem from "./atkins-pchem.js";
+import atkinsInorganic from "./atkins-inorganic.js";
 
-const books = [sunakawa, qm, thermoStat, organicChem, jonesOrganic, warrenOrganic];
+const books = [sunakawa, qm, thermoStat, organicChem, jonesOrganic, warrenOrganic, atkinsPchem, atkinsInorganic];
 
 export default books;

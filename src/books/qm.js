@@ -1,6 +1,7 @@
 // 量子力学 I & II（東大理物 院試対策）
 export default {
   id: "qm",
+  category: "物理",
   title: "量子力学",
   author: "",
   edition: "I & II",

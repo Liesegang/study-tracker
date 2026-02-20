@@ -1,6 +1,7 @@
 // ウォーレン有機化学（上巻+下巻）第2版
 export default {
   id: "warren-organic",
+  category: "化学",
   title: "ウォーレン有機化学",
   author: "Clayden, Greeves, Warren",
   edition: "第2版",

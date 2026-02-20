@@ -1,6 +1,7 @@
 // 砂川重信『理論電磁気学』第3版
 export default {
   id: "sunakawa-emag",
+  category: "物理",
   title: "理論電磁気学",
   author: "砂川重信",
   edition: "第3版",

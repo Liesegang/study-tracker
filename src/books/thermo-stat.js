@@ -1,6 +1,7 @@
 // 熱力学・統計力学（東大理物 院試対策）
 export default {
   id: "thermo-stat",
+  category: "物理",
   title: "熱力学・統計力学",
   author: "",
   edition: "",

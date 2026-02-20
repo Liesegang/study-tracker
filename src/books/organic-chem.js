@@ -1,6 +1,7 @@
 // 有機化学
 export default {
   id: "organic-chem",
+  category: "化学",
   title: "現代有機化学",
   author: "ボルハルト・ショアー",
   edition: "第8版",

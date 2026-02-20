@@ -1,6 +1,7 @@
 // ジョーンズ有機化学（上巻+下巻）
 export default {
   id: "jones-organic",
+  category: "化学",
   title: "ジョーンズ有機化学",
   author: "",
   edition: "",

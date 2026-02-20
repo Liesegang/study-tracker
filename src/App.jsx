@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import books from "./books/index.js";
 
 const STATUS_COLORS = {
@@ -40,25 +40,101 @@ function stars(n) {
   return "█".repeat(n) + "░".repeat(5 - n);
 }
 
-function BookTabs({ books, currentId, onSelect }) {
+function BookSelector({ books, currentId, onSelect }) {
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const categories = useMemo(() => {
+    const cats = [...new Set(books.map((b) => b.category).filter(Boolean))];
+    return ["all", ...cats];
+  }, [books]);
+
+  const filtered = useMemo(() => {
+    let list = books;
+    if (activeCategory !== "all") {
+      list = list.filter((b) => b.category === activeCategory);
+    }
+    if (search.trim()) {
+      const q = search.trim().toLowerCase();
+      list = list.filter(
+        (b) =>
+          b.title.toLowerCase().includes(q) ||
+          (b.author && b.author.toLowerCase().includes(q)) ||
+          (b.subtitle && b.subtitle.toLowerCase().includes(q))
+      );
+    }
+    return list;
+  }, [books, activeCategory, search]);
+
   if (books.length <= 1) return null;
+
+  const catLabel = (c) => (c === "all" ? "All" : c);
+
   return (
     <div style={{ maxWidth: 760, margin: "0 auto", padding: "0 20px" }}>
-      <div style={{ display: "flex", overflowX: "auto", borderBottom: "1px solid #15171e" }}>
-        {books.map((b) => {
+      {/* Category tabs + search */}
+      <div style={{ display: "flex", alignItems: "center", gap: 0, borderBottom: "1px solid #15171e" }}>
+        <div style={{ display: "flex", overflowX: "auto", flex: 1 }}>
+          {categories.map((cat) => {
+            const active = cat === activeCategory;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  borderBottom: active ? "2px solid #4a90d9" : "2px solid transparent",
+                  color: active ? "#e2e6ed" : "#5a6070",
+                  fontSize: 13,
+                  fontWeight: active ? 500 : 400,
+                  padding: "10px 16px",
+                  cursor: "pointer",
+                  fontFamily: "'Noto Sans JP'",
+                  transition: "all 0.15s",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {catLabel(cat)}
+              </button>
+            );
+          })}
+        </div>
+        <input
+          type="text"
+          placeholder="検索..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{
+            background: "#0c0e14",
+            border: "1px solid #1a1d25",
+            color: "#bcc3d0",
+            fontSize: 13,
+            padding: "5px 10px",
+            borderRadius: 4,
+            fontFamily: "'Noto Sans JP'",
+            outline: "none",
+            width: 120,
+            marginLeft: 8,
+          }}
+        />
+      </div>
+      {/* Book list */}
+      <div style={{ display: "flex", overflowX: "auto", gap: 4, padding: "8px 0" }}>
+        {filtered.map((b) => {
           const active = b.id === currentId;
           return (
             <button
               key={b.id}
               onClick={() => onSelect(b.id)}
               style={{
-                background: "none",
-                border: "none",
-                borderBottom: active ? "2px solid #4a90d9" : "2px solid transparent",
-                color: active ? "#e2e6ed" : "#5a6070",
-                fontSize: 14,
+                background: active ? "#111520" : "none",
+                border: active ? "1px solid #1a2a40" : "1px solid transparent",
+                borderRadius: 6,
+                color: active ? "#e2e6ed" : "#6a7080",
+                fontSize: 13,
                 fontWeight: active ? 500 : 400,
-                padding: "12px 20px",
+                padding: "8px 14px",
                 cursor: "pointer",
                 fontFamily: "'Noto Sans JP'",
                 transition: "all 0.15s",
@@ -69,6 +145,9 @@ function BookTabs({ books, currentId, onSelect }) {
             </button>
           );
         })}
+        {filtered.length === 0 && (
+          <span style={{ fontSize: 13, color: "#5a6070", padding: "8px 14px" }}>該当なし</span>
+        )}
       </div>
     </div>
   );
@@ -177,7 +256,7 @@ export default function App() {
       {/* === BOOK TABS === */}
       {books.length > 1 && (
         <div style={{ background: "#0a0b10", borderBottom: "1px solid #12141a" }}>
-          <BookTabs books={books} currentId={currentBookId} onSelect={selectBook} />
+          <BookSelector books={books} currentId={currentBookId} onSelect={selectBook} />
         </div>
       )}
 
